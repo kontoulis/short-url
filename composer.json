@@ -23,7 +23,7 @@
     "illuminate/container": "^6.0|^7.0|^8.0",
     "illuminate/database": "^6.0|^7.0|^8.0",
     "jenssegers/agent": "^2.6",
-    "hashids/hashids": "^4.0"
+    "hashids/hashids": "*"
   },
   "require-dev": {
     "mockery/mockery": "^1.0",

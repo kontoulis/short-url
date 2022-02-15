@@ -556,10 +556,10 @@ class Builder
 
         return $this;
     }
-    
+
     private function urlPrefix(): string
     {
-        return str_replace('/','//', trim(preg_replace('/\/+/', '/', config('short-url.url', config('app.url')).'/'.config('short-url.route_path'). '/'), '/'));
+        return config('short-url.url', config('app.url')).preg_replace('/\/+/', '/', '/'.config('short-url.route_path'));
     }
 
     private function cachingEnabled(): bool

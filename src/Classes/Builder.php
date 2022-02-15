@@ -411,7 +411,7 @@ class Builder
             throw new ShortURLException('No destination URL has been set.');
         }
         
-        if (!$this->cachingEnabled() && $existing = ShortURL::where('destination_url', $this->destinationUrl)->first()) {
+        if ($this->cachingEnabled() && $existing = ShortURL::where('destination_url', $this->destinationUrl)->first()) {
             return $existing;
         }
         

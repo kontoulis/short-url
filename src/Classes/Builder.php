@@ -435,7 +435,7 @@ class Builder
     {
         return ShortURL::create([
             'destination_url'                => $this->destinationUrl,
-            'default_short_url'              => $this->urlKey,
+            'default_short_url'              => $this->urlPrefix().$this->urlKey,
             'url_key'                        => $this->urlKey,
             'single_use'                     => $this->singleUse,
             'track_visits'                   => $this->trackVisits,
@@ -556,9 +556,14 @@ class Builder
 
         return $this;
     }
+    
+    private function urlPrefix(): string
+    {
+        return str_replace('/','//', trim(preg_replace('/\/+/', '/', config('short-url.url', config('app.url')).'/'.config('short-url.route_path'). '/'), '/'));
+    }
 
     private function cachingEnabled(): bool
     {
-        return (bool) config('short-url.caching_enabled');
+        return (bool) config('short-url.use_cache');
     }
 }

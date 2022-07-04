@@ -42,9 +42,9 @@ class KeyGenerator
         $ID = $this->getLastInsertedID();
 
         do {
-            $ID++;
+            $ID = $ID + 1 + time();
             $key = $this->hashids->encode($ID);
-        } while (ShortURL::where('url_key', $key)->exists());
+        } while (ShortURL::where('url_key', $key)->first());
 
         return $key;
     }
@@ -61,7 +61,7 @@ class KeyGenerator
      */
     protected function getLastInsertedID(): int
     {
-        if ($lastInserted = ShortURL::latest()->select('id')->first()) {
+        if ($lastInserted = ShortURL::select('id')->orderBy('id', 'desc')->first()) {
             return $lastInserted->id;
         }
 
